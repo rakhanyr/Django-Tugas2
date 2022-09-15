@@ -1,4 +1,4 @@
-https://djangotugas2rakhan.herokuapp.com/katalog/
+https://tugas2-rakhan.herokuapp.com/katalog/
 
 
 ![bagan tugas 2](https://user-images.githubusercontent.com/112617425/190317100-6592aea8-08d1-45fb-a8a3-6a9780b7fe4c.png)
