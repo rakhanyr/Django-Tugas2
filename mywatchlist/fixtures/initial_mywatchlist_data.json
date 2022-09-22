@@ -1,0 +1,112 @@
+[
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 1,
+        "fields": {
+            "watched": true,
+            "title": "Interstellar",
+            "rating": 5,
+            "release_date": "2014",
+            "review": "Emotional like never before"
+        }
+    },
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 2,
+        "fields": {
+            "watched": true,
+            "title": "La La Land",
+            "rating": 5,
+            "release_date": "2016",
+            "review": "Favorite film of all time"
+        }
+    },
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 3,
+        "fields": {
+            "watched": false,
+            "title": "SHE-HULK",
+            "rating": 4,
+            "release_date": "2022",
+            "review": "FUN SERIES TO WATCH"
+        }
+    },
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 4,
+        "fields": {
+            "watched": true,
+            "title": "The Godfather",
+            "rating": 5,
+            "release_date": "1972",
+            "review": "DON CORLEONE"
+        }
+    },
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 5,
+        "fields": {
+            "watched": true,
+            "title": "Hacksaw Ridge",
+            "rating": 5,
+            "release_date": "2016",
+            "review": "One of the greatest movie I've watched"
+        }
+    },
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 6,
+        "fields": {
+            "watched": true,
+            "title": "Fight Club",
+            "rating": 5,
+            "release_date": "1999",
+            "review": "MISCHIEF. MAYHEM. SOAP"
+        }
+    },
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 7,
+        "fields": {
+            "watched": false,
+            "title": "Pengabdi Setan 2",
+            "rating": 2,
+            "release_date": "2022",
+            "review": "Kurengg"
+        }
+    },
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 8,
+        "fields": {
+            "watched": true,
+            "title": "The Dark Knight",
+            "rating": 5,
+            "release_date": "2008",
+            "review": "ALIGG JON"
+        }
+    },
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 9,
+        "fields": {
+            "watched": true,
+            "title": "Minions",
+            "rating": 5,
+            "release_date": "2022",
+            "review": "RISE OF GRU"
+        }
+    },
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 10,
+        "fields": {
+            "watched": false,
+            "title": "The Marriage Story",
+            "rating": 4,
+            "release_date": "2017",
+            "review": "TAKUT NIKAH"
+        }
+    }
+]
