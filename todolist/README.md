@@ -17,3 +17,28 @@ Setelah itu adalah menambahkan path yang dibutuhkan kedalam urls.py agar dapat d
 Selanjutnya adalah membuat fungsi-fungsi yang dibutuhkan seperti register,login,logout dan data yang untuk ditampilkan pada views.py. Selanjutnya menambahkan urls untuk fungsi-fungsi tersebut.
 Kemudian membuat templates-templates html untuk menampilkan bentuk atau model halaman yang diinginkan yang ada tombol serta akses untuk fungsi-fungsi yang telah dibuat sebelumnya. 
 Terakhir adalah dengan melakukan push dan commit serta deploy ke aplikasi heroku.
+
+# TUGAS 5
+
+1. 
+Kelebihan dari inline adalah merupakan mdoel penulisan yang memiliki style berada pada elemennya langsung dengan menggunakan style dari tag html. Lalu efektif untuk digunakan jika hanya menambahkan styling pada 1 selector dan kurang cocok apabila jika digunakan untuk membuat style yang ingin digunakan kembali.
+
+Jika menggunakan internal css dapat menggunakan tag <style> dan segala penghiasan ditulis dalam tag tersebut. Selanjutnya untuk setiap instance dari selector yang dibuat, stylingnya akan selalu berlaku. Lalu jika style yang ingin dibuat banyak dapat memenuhi file template.
+
+External css, dapat digunakan di berbagai file dan berbagai template. Namun, dapat mempengaruhi watu render dari halaman web.
+
+2.
+<button> - untuk membuat tombol
+<table> - untuk membuat tabel dengan baris <tr> dan kolom atau data <td>
+<hr> - sebagai garis pemisah
+<br> - untuk baris baru
+<p> - membuat teks berukuran normal
+<h1>...<h6> - heading/subheading
+
+3. 
+Element selector yang menggunakan tag html sebagai selectornya
+ID selector yang menggunakan ID
+Lalu ada Class selector yang menggunakan tag sebagai selectornya
+
+4. 
+Dalam pengimplemantasian pada tugas kali ini adalah dengan menggunakan CSS bootstrap sebagai tools saya untuk bisa memodifikasi aplikasi ini sesuai kemauan dari saya. Saya pertama-tama adalah menggunakan bootstrap untuk membuat nav bar sebagai header bar yang unik pada html todolist. Masih di todolist selanjutnya saya adalah membuat button-button dan kostumisasi lainnya. Lalu untuk membuat cards nya saya menggunakan bungkusan dari class card yang ada dari web bootstrapnya langsung dengan diimplementasikan ke dalam kode html saya. Lalu membuat aplikasi ini menjadi responsive yang terakhir.
