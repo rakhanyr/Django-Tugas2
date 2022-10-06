@@ -2,11 +2,23 @@
 
 {% block meta %}
 <title>Registrasi Akun</title>
+<meta name="viewport", content="width=device-width, initial-scale=1.0">
+<style>
+    .task {
+        text-align:center;
+        font-family: arial, sans-serif;
+        border: 6px solid #eb349c;
+        width: 50%;
+        margin:auto;
+        border-color:#eb349c;
+    }
+</style>
 {% endblock meta %}
 
 {% block content %}  
 
-<div class = "login">
+<body>
+    <div class="task">
     
     <h1>Formulir Registrasi</h1>  
 
@@ -28,7 +40,7 @@
                 {% endfor %}  
         </ul>   
     {% endif %}
-
-</div>  
+    </div>  
+<body>  
 
 {% endblock content %}

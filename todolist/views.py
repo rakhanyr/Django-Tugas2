@@ -62,3 +62,7 @@ def create_task(request):
         Task.objects.create(title=title, description=description, date=datetime.date.today(), user=request.user)
         return HttpResponseRedirect(reverse("todolist:todolist")) 
     return render(request, "create_task.html")
+
+def delete(request, id):
+    Task.objects.filter(pk=id).delete()
+    return HttpResponseRedirect(reverse("todolist:todolist"))

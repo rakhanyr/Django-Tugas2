@@ -1,36 +1,52 @@
 {% extends 'base.html' %}
 
+
+{% block meta %}
+<title>Todolist: {{username}}</title>
+<meta name="viewport", content="width=device-width, initial-scale=1.0">
+<style>
+    h1 {
+    text-align: center;
+    color: #ff0080;
+    }
+    p {
+    text-align: left;
+    }
+</style>
+{% endblock meta %}
+
 {% block content %}
+<nav class="navbar navbar-expand-lg bg-light" style="background-color:#ff0080;">
+    <div class="container-fluid" style="background-color:#ff0080 ">
+      <a class="navbar-brand" href="#" style="color:#ffffff;"> Todolist</a>
+      <button type="button" class="btn btn-light"><a href="{% url 'todolist:logout' %}" class="link-light" style="background-color: #ff0080">Logout</a></button> 
+    </div>
+    </div>
+  </nav> 
+  <h1><span style="text-transform:uppercase"><strong>{{username}}'s</strong> TODOLIST</span></h1>
 
-  <h1>🥶 Assignment-4 PBP/PBD 🥶</h1>
-
-  <h5>Name: </h5>
-  <b>{{user.username}}</b>
+  <h5>Username: </h5>
+  <p>{{user.username}}</p>
 
 
-  <h5>Sesi terakhir login</h5>
+  <h5>Sesi Terakhir Login</h5>
   <p>{{last_login}}</p>
   
-  <table>
-    <table border="1">
-    <tr>
-        <th>Date</th>
-        <th>Title</th>
-        <th>Description</th>
-    </tr>
-    {% comment %} Add the data below this line {% endcomment %}
-    {% for task in tasks %}
-    <tr>
-        <td>{{task.date}}</td>
-        <td>{{task.title}}</td>
-        <td>{{task.description}}</td>
-    </tr>
-    {% endfor %}
-</table>
+  {% for task in tasks %}
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{task.title}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{task.date}}</h6>
+      <p class="card-text">{{task.description}}</p>
+      <button class="btn btn-danger"><a href="{% url 'todolist:delete' task.id %}" class="link-light">Delete</a></button>
+    </div>
+  </div>
+  {% endfor %}
+  </div>
 
 <p></p>
-<button><a href="{% url 'todolist:create_task' %}">Tambah Task</a></button>
+<button type="button" class="btn btn-primary"><a href="{% url 'todolist:create_task' %}" class="link-light">Tambah Task</a></button>
 
-<button><a href="{% url 'todolist:logout' %}">Logout</a></button> 
+<button type="button" class="btn btn-primary"><a href="{% url 'todolist:logout' %}" class="link-light">Logout</a></button> 
 
 {% endblock content %}

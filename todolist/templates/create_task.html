@@ -1,11 +1,22 @@
 {% extends 'base.html' %}
 
 {% block meta %}
-<title>Login</title>
+<title>Tambah Task</title>
+<style>
+    .task {
+        text-align:center;
+        font-family: arial, sans-serif;
+        border: 6px solid #eb349c;
+        width: 50%;
+        margin:auto;
+        border-color:#eb349c;
+    }
+</style>
 {% endblock meta %}
 
 {% block content %}
 
+<div class="task">
 <form method="POST" action="">
     {% csrf_token %}
         <table>
@@ -21,7 +32,7 @@
 
             <tr>
                 <td></td>
-                <td><input class="btn login_btn" type="submit" value="Create"></td>
+                <td><input class="btn btn-primary" type="submit" value="Create"></td>
             </tr>
         </table>
     </form>
