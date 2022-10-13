@@ -4,6 +4,7 @@
 {% block meta %}
 <title>Todolist: {{username}}</title>
 <meta name="viewport", content="width=device-width, initial-scale=1.0">
+
 <style>
     h1 {
     text-align: center;
@@ -13,9 +14,76 @@
     text-align: left;
     }
 </style>
+
 {% endblock meta %}
 
 {% block content %}
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function loadData() {
+            $.get(`/todolist/json`, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $(`#todo`).append(card(data[i]));
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            loadData();
+
+            $('#add-task').click(function () {
+                $.post(
+                    '/todolist/add/',
+                    {
+                        title: $('#title').val(),
+                        description: $('#description').val(),
+                    },
+                    function (data, status) {
+                        if (status == 'success') {
+                            $(`#todo`).append(card(data))
+                            $('#title').val('')
+                            $('#description').val('')
+                        }
+                    },
+                )
+            })
+        });
+
+        const card = (data) =>
+            `<div class="card" id="task-${data.pk}">
+                <div>${data.fields.title}</div>
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">{{task.title}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{task.date}}</h6>
+                    <p class="card-text">{{task.description}}</p>
+                  </div>
+                </div>
+                <div>${data.fields.description}</div>
+                <div>
+                    <a onclick="deleteCard(${data.pk})"><button class="btn btn-danger"><a href="{% url 'todolist:delete' task.id %}" class="link-light">Delete</a></button>
+                </div>
+                <div>${data.fields.date}</div>
+            </div>`
+
+        function deleteCard(id) {
+            $.ajax({
+                url: `/todolist/delete/${id}`,
+                type: 'DELETE',
+                success: function (result) {
+                    $(`#task-${id}`).remove()
+                }
+            });
+        }
+
+
+    </script>
+
+
+</head>
+
+
 <nav class="navbar navbar-expand-lg bg-light" style="background-color:#ff0080;">
     <div class="container-fluid" style="background-color:#ff0080 ">
       <a class="navbar-brand" href="#" style="color:#ffffff;"> Todolist</a>
@@ -25,6 +93,42 @@
   </nav> 
   <h1><span style="text-transform:uppercase"><strong>{{username}}'s</strong> TODOLIST</span></h1>
 
+  <div id="taskCard" class="flex justify-center"></div>
+
+  <div class="modal" id="modalCreate" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create Task</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="">
+            <form method="POST" id="post-form">
+              {% csrf_token %}
+              <table>
+                <tr>
+                  <td>Todo:</td>
+                  <td><input type="text" name="todo" placeholder="new todo" class="form-control" id="taskname"</td>
+                </tr>
+                <tr>
+                  <td>Description:</td>
+                  <td><input type="text" name="description" placeholder="Description" class="form-control" id="taskdesc"</td>
+                </tr>
+              </table>
+              <input type="submit" name="submit" value="Create">
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <h5>Username: </h5>
   <p>{{user.username}}</p>
 
@@ -33,14 +137,14 @@
   <p>{{last_login}}</p>
   
   {% for task in tasks %}
-  <div class="card" style="width: 18rem;">
+  <!-- <div class="card" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">{{task.title}}</h5>
       <h6 class="card-subtitle mb-2 text-muted">{{task.date}}</h6>
       <p class="card-text">{{task.description}}</p>
       <button class="btn btn-danger"><a href="{% url 'todolist:delete' task.id %}" class="link-light">Delete</a></button>
     </div>
-  </div>
+  </div> -->
   {% endfor %}
   </div>
 

@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.http import HttpResponse
 from django.core import serializers
@@ -83,13 +83,24 @@ def create_task_ajax(request):
     if (request.method == 'POST'):
         title = request.POST.get('title')
         description = request.POST.get('description')
-        Task.objects.create(title=title, description=description, date=datetime.date.today(), user=request.user)
-        response = HttpResponseRedirect(reverse("todolist:todolist"))
-        return response
+        user = request.user
+        date = datetime.date.today()
+        task = Task.objects.create(title=title, description=description, date=date, user=user)
+        result = {
+            'fields':{
+                'title':task.title,
+                'description':task.description,
+                'date':task.date,
+            },
+            'pk':task.pk
+        }
+        print(result)
+        return JsonResponse(result)
 
 @login_required(login_url='login/')
-def delete_ajax(request, id):
-    Task.objects.filter(pk=id).delete()
-    return HttpResponseRedirect(reverse("todolist:todolist"))
-
+@csrf_exempt
+def delete_task_ajax(request, id):
+    if (request.method == 'DELETE'):
+        Task.objects.filter(pk=id).delete()
+        return HttpResponse(status=202)
 
