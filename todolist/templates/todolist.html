@@ -56,8 +56,7 @@
                 <div class="card" style="width: 18rem;"></div>
                 <div>${data.fields.description}</div>
                 <div>
-                    <a onclick="deleteCard(${data.pk})"><button class="btn btn-danger"><a href="{% url 'todolist:delete' task.id %}" class="link-light">Delete</a></button>
-                </div>
+                    <a onclick="deleteCard(${data.pk})"><button type="submit" class="btn btn-danger">Delete Task</button></a>
                 <div>${data.fields.date}</div>
             </div>`
 
