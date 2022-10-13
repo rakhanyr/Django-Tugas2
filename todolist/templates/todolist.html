@@ -53,13 +53,7 @@
         const card = (data) =>
             `<div class="card" id="task-${data.pk}">
                 <div>${data.fields.title}</div>
-                <div class="card" style="width: 18rem;">
-                  <div class="card-body">
-                    <h5 class="card-title">{{task.title}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{task.date}}</h6>
-                    <p class="card-text">{{task.description}}</p>
-                  </div>
-                </div>
+                <div class="card" style="width: 18rem;"></div>
                 <div>${data.fields.description}</div>
                 <div>
                     <a onclick="deleteCard(${data.pk})"><button class="btn btn-danger"><a href="{% url 'todolist:delete' task.id %}" class="link-light">Delete</a></button>
