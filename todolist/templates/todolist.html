@@ -31,8 +31,6 @@
                           <h5 class="card-title">${todolist[i].fields.title}</h5>
                           <h6 class="card-subtitle mb-2 text-muted">${todolist[i].fields.date}</h6>
                           <p class="card-text">${todolist[i].fields.description}</p>
-                        </div>
-                      </div>
                     </div>`)
                 }
             });
@@ -46,6 +44,7 @@
                         <h5 class="card-title">${result.fields.title}</h5>
                         <p class="card-text">${result.fields.date}</p>
                         <p class="card-text">${result.fields.description}</p>
+                        <ion-icon name="trash-outline" id="delete-icon" onclick="deleteCard(${data.pk})"></ion-icon>
                       </div>`)
                   $('#title').val(''),
                   $('#description').val('')
