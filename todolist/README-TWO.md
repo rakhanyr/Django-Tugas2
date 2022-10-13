@@ -13,4 +13,4 @@
  ### Jelaskan penerapan asynchronous programming pada AJAX.
 Penerapan asynchronous programming pada AJAX terjadi ketika program tidak perlu mereload halaman ketika program mendapatkan request dari user. Contoh penerapan pada tugas ini dapat dilihat ketika menambahkan sebuah task baru yang mana program akan langsung menambahkan task tanpa perlu mereload halaman.
  
- Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
+ ### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
