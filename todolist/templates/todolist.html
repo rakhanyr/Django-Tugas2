@@ -53,7 +53,13 @@
         const card = (data) =>
             `<div class="card" id="task-${data.pk}">
                 <div>${data.fields.title}</div>
-                <div class="card" style="width: 18rem;"></div>
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">{${data.fields.title}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{${data.fields.date}</h6>
+                    <p class="card-text">{${data.fields.description}}</p>
+                  </div>
+                </div>
                 <div>${data.fields.description}</div>
                 <div>
                     <a onclick="deleteCard(${data.pk})"><button type="submit" class="btn btn-danger">Delete Task</button></a>
