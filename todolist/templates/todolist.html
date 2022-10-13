@@ -21,52 +21,39 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-    function loadData() {
-        $.get(`/todolist/json`, function (data) {
-            for (var i = 0; i < data.length; i++) {
-                $(`#todo`).append(card(data[i]));
-            }
-        });
-    }
-
-    $(document).ready(function () {
-        loadData();
-
-        $('#add-task').click(function () {
-            $.post(
-                '/todolist/add/',
-                {
-                    title: $('#title').val(),
-                    description: $('#description').val(),
-                },
-                function (data, status) {
-                    if (status == 'success') {
-                        $(`#todo`).append(card(data))
-                        $('#title').val('')
-                        $('#description').val('')
-                    }
-                },
-            )
-        })
-    });
-
-    const card = (data) =>
-    `<div class="card" id="task-${data.pk}">
-        <div>${data.fields.title}</div>
-        <div>${data.fields.description}</div>
-        <div>
-            
-            <div class="${data.fields.is_finished ? 'd-block' : 'd-none'}">Selesai</div>
-            <div class="${data.fields.is_finished ? 'd-none' : 'd-block'}">Belum Selesai</div>
-        </div>
-        <div>
-            <a onclick="updateCard(${data.pk})"><button type="submit" class="btn btn-danger">Update
-                    Task</button></a>
-            <a onclick="deleteCard(${data.pk})"><button type="submit" class="btn btn-danger">Delete
-                    Task</button></a>
-        </div>
-        <div>${data.fields.date}</div>
-    </div>`
+        $(document).ready(function() {
+            $.get("/todolist/json/", function(todolist) {
+                console.log(todolist);
+                for (i = 0; i < todolist.length; i++){
+                    $(".task_list").append(` <div class="grid-container">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                          <h5 class="card-title">${todolist[i].fields.title}</h5>
+                          <h6 class="card-subtitle mb-2 text-muted">${todolist[i].fields.date}</h6>
+                          <p class="card-text">${todolist[i].fields.description}</p>
+                        </div>
+                      </div>
+                    </div>`)
+                }
+            });
+            $("#submit").click(function(){
+              $.post("/todolist/add/", {
+                title : $('#title').val(),
+                description: $('#description').val()},
+                function (result) {
+                  $(".task_list").append(` <div class="grid-container"> <div class="card" style="max-width: 18rem;">
+                      <div class="card-body">
+                        <h5 class="card-title">${result.fields.title}</h5>
+                        <p class="card-text">${result.fields.date}</p>
+                        <p class="card-text">${result.fields.description}</p>
+                      </div>`)
+                  $('#title').val(''),
+                  $('#description').val('')
+                  
+                }
+                )
+              })
+        }); 
 
     function deleteCard(id) {
         $.ajax({
@@ -146,8 +133,11 @@
   <!-- {% endfor %} -->
   <!-- </div> -->
 
+<div class="task_list"></div> 
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCreate">Tambah Task</button>
+
 <p></p>
-<button type="button" class="btn btn-primary"><a href="{% url 'todolist:create_task' %}" class="link-light">Tambah Task</a></button>
 
 <button type="button" class="btn btn-primary"><a href="{% url 'todolist:logout' %}" class="link-light">Logout</a></button> 
 
