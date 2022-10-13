@@ -9,6 +9,10 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.http import HttpResponse
+from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
+
 # Create your views here.
 
 @login_required(login_url='login/')
@@ -63,6 +67,29 @@ def create_task(request):
         return HttpResponseRedirect(reverse("todolist:todolist")) 
     return render(request, "create_task.html")
 
+@login_required(login_url='login/')
 def delete(request, id):
     Task.objects.filter(pk=id).delete()
     return HttpResponseRedirect(reverse("todolist:todolist"))
+
+@login_required(login_url='login/')
+def show_json(request):
+    data = Task.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+@login_required(login_url='login/')
+@csrf_exempt
+def create_task_ajax(request):
+    if (request.method == 'POST'):
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        Task.objects.create(title=title, description=description, date=datetime.date.today(), user=request.user)
+        response = HttpResponseRedirect(reverse("todolist:todolist"))
+        return response
+
+@login_required(login_url='login/')
+def delete_ajax(request, id):
+    Task.objects.filter(pk=id).delete()
+    return HttpResponseRedirect(reverse("todolist:todolist"))
+
+
