@@ -21,7 +21,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-        $(document).ready(function() {
+ $(document).ready(function() {
             $.get("/todolist/json/", function(todolist) {
                 console.log(todolist);
                 for (i = 0; i < todolist.length; i++){
@@ -31,6 +31,8 @@
                           <h5 class="card-title">${todolist[i].fields.title}</h5>
                           <h6 class="card-subtitle mb-2 text-muted">${todolist[i].fields.date}</h6>
                           <p class="card-text">${todolist[i].fields.description}</p>
+                        </div>
+                      </div>
                     </div>`)
                 }
             });
@@ -47,21 +49,21 @@
                       </div>`)
                   $('#title').val(''),
                   $('#description').val('')
-                  
+
                 }
                 )
               })
         }); 
 
-    function deleteCard(id) {
-        $.ajax({
-            url: `/todolist/delete/${id}`,
-            type: 'DELETE',
-            success: function (result) {
-                $(`#task-${id}`).remove()
-            }
-        });
-    }
+    // function deleteCard(id) {
+    //     $.ajax({
+    //         url: `/todolist/delete/${id}`,
+    //         type: 'DELETE',
+    //         success: function (result) {
+    //             $(`#task-${id}`).remove()
+    //         }
+    //     });
+    // }
 
 
 </script>
@@ -79,33 +81,31 @@
   <div id="taskCard" class="flex justify-center"></div>
 
   <div class="modal" id="modalCreate" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Create Task</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <h1 class="modal-title fs-5" id="modalLabel">NEW TASK</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" style="background-color:#ff0080 ">
-          <div class="">
-            <form method="POST" id="post-form">
-              {% csrf_token %}
-              <table>
+          <form method="POST" action="">
+            {% csrf_token %}
+            <table>
                 <tr>
-                  <td>Todo:</td>
-                  <td><input type="text" name="todo" placeholder="new todo" class="form-control" id="taskname"</td>
+                    <td>Judul: </td>
+                    <td><input type="text" name="title" placeholder="Judul.." class="form-control" id="title"></td>
                 </tr>
+                        
                 <tr>
-                  <td>Description:</td>
-                  <td><input type="text" name="description" placeholder="Description" class="form-control" id="taskdesc"</td>
+                    <td>Deskripsi: </td>
+                    <td><input type="text" name="description" placeholder="Desc.." class="form-control" id="description"></td>
                 </tr>
-              </table>
-              <input type="submit" name="submit" value="Create">
-            </form>
-          </div>
+            </table>
+          </form>
         </div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="submit" data-bs-dismiss="modal">Tambahkan</button>
         </div>
       </div>
     </div>
@@ -135,7 +135,7 @@
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCreate">Tambah Task</button>
 
 <p></p>
-
+<button type="button" class="btn btn-primary"><a href="{% url 'todolist:create_task' %}" class="link-light">Tambah Task</a></button>
 <button type="button" class="btn btn-primary"><a href="{% url 'todolist:logout' %}" class="link-light">Logout</a></button> 
 
 {% endblock content %}

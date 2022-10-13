@@ -77,7 +77,6 @@ def show_json(request):
     data = Task.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
-@login_required(login_url='login/')
 @csrf_exempt
 def create_task_ajax(request):
     if (request.method == 'POST'):
