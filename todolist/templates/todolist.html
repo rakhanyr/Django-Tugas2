@@ -18,69 +18,68 @@
 {% endblock meta %}
 
 {% block content %}
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        function loadData() {
-            $.get(`/todolist/json`, function (data) {
-                for (var i = 0; i < data.length; i++) {
-                    $(`#todo`).append(card(data[i]));
-                }
-            });
-        }
 
-        $(document).ready(function () {
-            loadData();
-
-            $('#add-task').click(function () {
-                $.post(
-                    '/todolist/add/',
-                    {
-                        title: $('#title').val(),
-                        description: $('#description').val(),
-                    },
-                    function (data, status) {
-                        if (status == 'success') {
-                            $(`#todo`).append(card(data))
-                            $('#title').val('')
-                            $('#description').val('')
-                        }
-                    },
-                )
-            })
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    function loadData() {
+        $.get(`/todolist/json`, function (data) {
+            for (var i = 0; i < data.length; i++) {
+                $(`#todo`).append(card(data[i]));
+            }
         });
+    }
 
-        const card = (data) =>
-            `<div class="card" id="task-${data.pk}">
-                <div>${data.fields.title}</div>
-                <div class="card" style="width: 18rem;">
-                  <div class="card-body">
-                    <h5 class="card-title">{${data.fields.title}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{${data.fields.date}</h6>
-                    <p class="card-text">{${data.fields.description}}</p>
-                  </div>
-                </div>
-                <div>${data.fields.description}</div>
-                <div>
-                    <a onclick="deleteCard(${data.pk})"><button type="submit" class="btn btn-danger">Delete Task</button></a>
-                <div>${data.fields.date}</div>
-            </div>`
+    $(document).ready(function () {
+        loadData();
 
-        function deleteCard(id) {
-            $.ajax({
-                url: `/todolist/delete/${id}`,
-                type: 'DELETE',
-                success: function (result) {
-                    $(`#task-${id}`).remove()
-                }
-            });
-        }
+        $('#add-task').click(function () {
+            $.post(
+                '/todolist/add/',
+                {
+                    title: $('#title').val(),
+                    description: $('#description').val(),
+                },
+                function (data, status) {
+                    if (status == 'success') {
+                        $(`#todo`).append(card(data))
+                        $('#title').val('')
+                        $('#description').val('')
+                    }
+                },
+            )
+        })
+    });
+
+    const card = (data) =>
+    `<div class="card" id="task-${data.pk}">
+        <div>${data.fields.title}</div>
+        <div>${data.fields.description}</div>
+        <div>
+            
+            <div class="${data.fields.is_finished ? 'd-block' : 'd-none'}">Selesai</div>
+            <div class="${data.fields.is_finished ? 'd-none' : 'd-block'}">Belum Selesai</div>
+        </div>
+        <div>
+            <a onclick="updateCard(${data.pk})"><button type="submit" class="btn btn-danger">Update
+                    Task</button></a>
+            <a onclick="deleteCard(${data.pk})"><button type="submit" class="btn btn-danger">Delete
+                    Task</button></a>
+        </div>
+        <div>${data.fields.date}</div>
+    </div>`
+
+    function deleteCard(id) {
+        $.ajax({
+            url: `/todolist/delete/${id}`,
+            type: 'DELETE',
+            success: function (result) {
+                $(`#task-${id}`).remove()
+            }
+        });
+    }
 
 
-    </script>
-
-
-</head>
+</script>
 
 
 <nav class="navbar navbar-expand-lg bg-light" style="background-color:#ff0080;">
@@ -135,7 +134,7 @@
   <h5>Sesi Terakhir Login</h5>
   <p>{{last_login}}</p>
   
-  {% for task in tasks %}
+  <!-- {% for task in tasks %} -->
   <!-- <div class="card" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">{{task.title}}</h5>
@@ -144,8 +143,8 @@
       <button class="btn btn-danger"><a href="{% url 'todolist:delete' task.id %}" class="link-light">Delete</a></button>
     </div>
   </div> -->
-  {% endfor %}
-  </div>
+  <!-- {% endfor %} -->
+  <!-- </div> -->
 
 <p></p>
 <button type="button" class="btn btn-primary"><a href="{% url 'todolist:create_task' %}" class="link-light">Tambah Task</a></button>
